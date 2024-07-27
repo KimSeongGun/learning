@@ -626,7 +626,11 @@ $ git log --graph --pretty=oneline --abbrev-commit
 $ git branch -d test
 ```
 
+### 5.3 分支管理策略
 
+如果可能，Git会用`Fast forward`模式，但这种模式下，删除分支后，会丢掉分支信息。
+
+如果要强制禁用`Fast forward`模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
 
 
 
