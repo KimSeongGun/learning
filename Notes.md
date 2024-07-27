@@ -567,7 +567,7 @@ $ git swtich dev
 
 ![image-20240727155448099](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727155448099.png)
 
-
+a new line for master
 
 
 
