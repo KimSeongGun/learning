@@ -597,7 +597,34 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 Git用`<<<<<<<`，`=======`，`>>>>>>>`标记出不同分支的内容。只能手动修改并合并分支。
 
+在有冲突的文件上进行手动修改，修改完成后添加并提交。注意此时不用再切换分支，因为强行合并后`master`和`test`两个分支的内容变得一样了。
 
+```cmd
+$ git add Notes.md
+$ git commit -m "conflict fixed"
+[master d18ea67] conflict fixed
+```
+
+可以使用带参数的`git log`查看分支的合并情况,，`git log --graph`命令可以看到分支合并图。
+
+```cmd
+$ git log --graph --pretty=oneline --abbrev-commit
+*   d18ea67 (HEAD -> master) conflict fixed
+|\
+| * a772d01 (test) test in test
+* | e84d9f7 test for master
+|/
+* cf686dc modify Notes 0727-2
+* a119cab branch test
+* 1d459b2 modified Notes 0727-1
+* b350495 (origin/master) created Notes
+```
+
+最后删除`test`分支
+
+```cmd
+$ git branch -d test
+```
 
 
 
