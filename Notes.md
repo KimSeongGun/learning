@@ -650,41 +650,213 @@ $ git merge --no-ff -m "merge with no-ff" dev
 
 ### 5.4 Bug分支
 
+- `git stash`
+- `git stash list`
+- `git stash pop`
+- `git stash apply stash@{0}`
+- `git stash drop`
+- `git cherry-pick`
+
 每个Bug都可以通过一个新的临时分支来修复，修复后合并分支再将临时分支删除。
 
-假设现在要修复代码为101的Bug，自然需要创建`issue-101`进行修复，但是此时`dev`上的工作还没有完成无法提交。因此需要`git stash`存储工作现场，等恢复现场以后继续工作。
+假设现在要修复代码为101的Bug，自然需要创建`issue-101`进行修复，但是此时`dev`上的工作还没有完成无法提交。此时查看状态发现有任务没提交。
+
+```cmd
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 9 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Notes.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+因此需要`git stash`存储工作现场，等恢复现场以后继续工作。
+
+```cmd
+$ git stash
+Saved working directory and index state WIP on master: 58f9467 开始写Bug分支，新建test.txt
+```
+
+此时再查看状态，发现工作区变干净了，此时可以放心地创建分支来修复bug。
+
+```cmd
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 9 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+```
+
+首先确定要在哪个分支上修复bug，假定需要在`master`分支上修复，就从`master`创建临时分支：
+
+```cmd
+$ git checkout master
+$ git checkout -b issue-101
+Switched to a new branch 'issue-101'
+```
+
+现在修复bug，需要把“This is file”改为“This is a file”，然后提交：
+
+```cmd
+$ git add test.txt
+$ git commit -m "修Bug"
+[issue-101 2f0b6e2] 修Bug
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+修复完成后，切换到`master`分支，并完成合并，最后删除`issue-101`分支。
+
+```cmd
+$ git merge issue-101
+Updating 8b4974a..2f0b6e2
+Fast-forward
+ test.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+使用`git stash list`查看工作现场列表，使用`git stash apply`或`git stash apply stash@{0}`恢复。用`git stash drop`来删除。
+
+也可以用`git stash pop`进行弹栈。
+
+```cmd
+$ git stash pop
+On branch master
+Your branch is ahead of 'origin/master' by 9 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Notes.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (b7eb343b0be8fb45e6a6f35436712a6e912a368c)
+```
 
 
 
+由于`dev`是从`master`分化出来的，因此`dev`中也存在着相同的bug（`dev`分支中的test.txt还是this is file）。同样的bug，要在`dev`上修复，我们只需要把``这个提交所做的修改“复制”到`dev`分支。
 
+注意：我们只想复制`[issue-101 2f0b6e2] 修Bug`这个**提交**所做的修改，并不是把整个`master`分支merge过来。为了方便操作，Git专门提供了一个`cherry-pick`命令，让我们能复制一个特定的提交到当前分支
 
+```cmd
+$ git cherry-pick 2f0b6e2
+[dev df9a32d] 修Bug
+ Date: Sat Jul 27 16:42:40 2024 +0800
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
 
+Git自动给`dev`分支做了一次提交。注意这次提交的commit是`df9a32d`，它并不同于`master`的`2f0b6e2`，因为这两个commit只是改动相同，但确实是**两个不同的commit**。用`git cherry-pick`，我们就不需要在`dev`分支上手动再把修bug的过程重复一遍。
 
+### 5.5 Feature分支
 
+每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支。如：
 
+```cmd
+$ git checkout feature-music
+```
 
+### 5.6 多人协作
 
+[多人共用一个远程库时](https://liaoxuefeng.com/books/git/branch/collaboration/index.html)
 
+[Rebase](https://liaoxuefeng.com/books/git/branch/rebase/index.html)
 
+## 6. 标签管理
 
+发布一个版本时，我们通常先在版本库中打一个标签（tag），这样，就唯一确定了打标签时刻的版本。tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。
 
+### 6.1 创建标签
 
+在需要打标签的分支上键入`git tag`就能添加新标签
 
+```cmd
+$ git tag v1.0
+```
 
+使用`git tag`查看所有标签。
 
+也可以根据commit id打标签。先用`git log`查看所有commit id
 
+```cmd
+$ git tag v0.9 f52c633
+```
 
+注意，标签不是按时间顺序列出，而是按字母排序的。可以用`git show <tagname>`查看标签信息：
 
+```cmd
+$ git show v0.9
+commit f52c63349bc3c1593499807e5c8e972b82c8f286 (tag: v0.9)
+Author: Michael Liao <askxuefeng@gmail.com>
+Date:   Fri May 18 21:56:54 2018 +0800
 
+    add merge
 
+diff --git a/readme.txt b/readme.txt
+...
+```
 
+还可以创建带有说明的标签，用`-a`指定标签名，`-m`指定说明文字：
 
+```cmd
+$ git tag -a v0.1 -m "version 0.1 released" 1094adb
+```
 
+### 6.2 删除标签
 
+```cmd
+$ git tag -d v0.1
+```
 
+如果要推送某个标签到远程，使用命令`git push origin <tagname>`：
 
+```cmd
+$ git push origin v1.0
+```
 
+或者，一次性推送全部尚未推送到远程的本地标签：
 
+```cmd
+$ git push origin --tags
+```
+
+如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：
+
+```cmd
+$ git tag -d v0.9
+```
+
+然后，从远程删除。删除命令也是push，但是格式如下：
+
+```cmd
+$ git push origin :refs/tags/v0.9
+To github.com:michaelliao/learngit.git
+ - [deleted]         v0.9
+```
+
+要看看是否真的从远程库删除了标签，可以登陆GitHub查看。
+
+## 7. 忽略特殊文件
+
+忽略特殊文件https://liaoxuefeng.com/books/git/customize/ignore/index.html
+
+## 8. 配置命令别名——缩写
+
+https://liaoxuefeng.com/books/git/customize/alias/index.html
+
+- `git lg`：格式化git log`git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"`
+
+- `git last`：显示最后一次提交信息`$ git config --global alias.last 'log -1'`
+
+## 9. 搭建Git服务器
+
+https://liaoxuefeng.com/books/git/customize/server/index.html
 
 
 
