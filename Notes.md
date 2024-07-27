@@ -466,3 +466,101 @@ $ git clone git@github.com:KimSeongGun/gitskills.git
 ```
 
 Git支持多种协议，包括`https`，但`ssh`协议速度最快。
+
+
+
+## 5. 分支管理
+
+创建一个分支，在分支上干活，最后在合并到原来分支上，既安全又不影响他人工作。
+
+### 5.1 创建和合并分支
+
+每次提交，Git都将他们串成一条时间线，这条时间线就是一个分支。`HEAD`指向`master`，`master`指向当前提交。**`HEAD`指向当前分支。**
+
+![image-20240727135746579](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727135746579.png)
+
+当创建一个新的分支`dev`后，令`HEAD`指向`dev`，即更改当前分支为`dev`分支。从此，每新提交一次，`dev`指针就向前移动一步而`master`指针不变。
+
+![image-20240727140320899](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727140320899.png)假如在`dev`上的工作完成了，则把`dev`的指针合并到`master`上。
+
+Git通过把`master`指向`dev`的当前提交完成合并。
+
+![image-20240727140414674](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727140414674.png)
+
+完成合并后可以删除`dev`分支。
+
+![image-20240727140449234](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727140449234.png)
+
+#### 1.首先创建`dev`分支
+
+```cmd
+$ git checkout -b dev
+Switched to a new branch 'dev'
+```
+
+`-b`属性表示创建并切换分支。等价于两条命令：
+
+```cmd
+$ git branch dev
+$ git checkout dev
+```
+
+然后查看当前分支，`git branch`命令会列出所有分支，当前分支前面会标一个`*`号。
+
+```cmd
+$ git branch
+* dev
+  master
+```
+
+#### 2.在dev上修改，并切换回master分支
+
+```cmd
+$ git add Notes.md
+$ git commit -m "test"
+```
+
+假设`dev`工作完成，切换回`master`分支。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
