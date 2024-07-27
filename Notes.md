@@ -628,9 +628,63 @@ $ git branch -d test
 
 ### 5.3 分支管理策略
 
-如果可能，Git会用`Fast forward`模式，但这种模式下，删除分支后，会丢掉分支信息。
+如果可能，Git会用`Fast forward`模式，但这种模式下，删除分支后，会丢掉分支信息（**`dev`指针还在，但是工作区被`master`覆盖**，见5-1）。
 
 如果要强制禁用`Fast forward`模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+
+因此在合并时，要在`master`工作区添加`--no-ff`属性，保留`dev`属性的工作区。
+
+```cmd
+$ git merge --no-ff -m "merge with no-ff" dev
+```
+
+此时合并后的结果为
+
+![image-20240727161910677](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727161910677.png)
+
+`master`分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；干活应该在`dev`分支上，同时不同的人应该有自己的分支，并向`dev`分支上合并。等发布新版本时再从`dev`向`master`合并。
+
+![image-20240727162058676](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727162058676.png)
+
+合并分支时，加上`--no-ff`参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而`fast forward`合并就看不出来曾经做过合并。
+
+### 5.4 Bug分支
+
+每个Bug都可以通过一个新的临时分支来修复，修复后合并分支再将临时分支删除。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
