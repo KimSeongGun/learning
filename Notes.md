@@ -475,6 +475,11 @@ Git支持多种协议，包括`https`，但`ssh`协议速度最快。
 
 ### 5.1 创建和合并分支
 
+- `git branch`
+- `git checkout`
+- `git merge`
+- `git switch`
+
 每次提交，Git都将他们串成一条时间线，这条时间线就是一个分支。`HEAD`指向`master`，`master`指向当前提交。**`HEAD`指向当前分支。**
 
 ![image-20240727135746579](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727135746579.png)
@@ -522,21 +527,45 @@ $ git commit -m "test"
 
 假设`dev`工作完成，切换回`master`分支。
 
+```cmd
+$ git checkout master
+```
+
+可以发现在`dev`中修改的部分`master`中不见了。
+
+#### 3.合并分支
+
+把`dev`中的工作合并到`master`中
+
+```cmd
+$ git merge dev
+Updating d46f35e..b17d20e
+Fast-forward
+ Notes.txt | 1 +
+ 1 file changed, 1 insertion(+)
+```
+
+合并完成后，就可以放心地删除`dev`分支了
+
+```cmd
+$ git branch -d dev
+```
+
+#### 4. switch
+
+撤销修改是`git checkout -- <file>`，为防止混淆Git提供了新的命令专门用于切换分支。
+
+```cmd
+$ git swtich dev
+```
 
 
-a little change
 
+### 5.2 解决冲突
 
+创建一个新的分支`test`，修改Notes.md并提交。然后转回到`master`分支，也修改Notes.md并提交，即出现这样的情况。
 
-
-
-
-
-
-
-
-
-
+![image-20240727155448099](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727155448099.png)
 
 
 
