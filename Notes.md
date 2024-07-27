@@ -567,13 +567,35 @@ $ git swtich dev
 
 ![image-20240727155448099](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727155448099.png)
 
-a new line for master
+此时合并会出现冲突，Git无法执行“快速合并”，只能试图把各自的修改合并起来，但这种合并就可能会有冲突
 
+```cmd
+$ git merge test
+Auto-merging Notes.md
+CONFLICT (content): Merge conflict in Notes.md
+Automatic merge failed; fix conflicts and then commit the result.
+```
 
+`git status`也能提示冲突内容
 
+```cmd
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 4 commits.
+  (use "git push" to publish your local commits)
 
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
 
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   Notes.md
 
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Git用`<<<<<<<`，`=======`，`>>>>>>>`标记出不同分支的内容。只能手动修改并合并分支。
 
 
 
