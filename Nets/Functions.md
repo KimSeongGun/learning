@@ -118,7 +118,7 @@ $$
 
 PReLU 也是 ReLU 的改进版本
 
-![image-20240729122520918](assets\PReLU.png)
+<img src="assets\PReLU.png" alt="relu compare" style="zoom:80%;" />
 
 - 当a_i = 0，则为ReLU
 - 当a_i > 0，则为Leaky ReLU
