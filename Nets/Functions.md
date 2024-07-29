@@ -13,7 +13,10 @@
 
 公式为
 
-![image-20240729120301394](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120301394.png)
+$$
+\sigma(x) = \frac{1}{1+e^{-x}}
+$$
+
 
 图像为
 
@@ -30,7 +33,10 @@
 
 表达式
 
-![image-20240729120316487](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120316487.png)
+$$
+tanh(x) = \frac{2}{1+e^{-2x}} - 1
+$$
+
 
 图像为
 
@@ -47,7 +53,13 @@
 
 表达式为
 
-![image-20240729120323559](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120323559.png)
+$$
+f(y_i) = \begin{cases}
+	max(0, y_i) & y_i \ge 0 \\
+	0 & y_i \lt 0
+\end{cases}
+$$
+
 
 图像为
 
@@ -62,7 +74,13 @@
 
 表达式
 
-![image-20240729120328934](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120328934.png)
+$$
+f(y_i) = \begin{cases}
+	y_i, & y_i \gt 0 \\
+	\alpha_i y_i, & y_i \le 0
+\end{cases}
+$$
+
 
 图像为
 
@@ -78,7 +96,13 @@
 
 表达式为
 
-![image-20240729120333328](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120333328.png)
+$$
+ELU(x) = \begin{cases}
+	x, & x\gt0 \\
+	\alpha(e^{x} - 1), & x\le 0
+\end{cases}
+$$
+
 
 图像为
 
@@ -94,11 +118,7 @@
 
 PReLU 也是 ReLU 的改进版本
 
-![image-20240729120338191](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120338191.png)
-
-可学习参数α通常为 0 到 1 之间的数字，并且通常相对较小。
-
-![image-20240729113036134](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729113036134.png)
+![image-20240729122520918](assets\PReLU.png)
 
 - 当a_i = 0，则为ReLU
 - 当a_i > 0，则为Leaky ReLU
@@ -114,7 +134,10 @@ Softmax 是用于多类分类问题的激活函数。对于K为向量，Softmax�
 
 公式为
 
-![image-20240729120343097](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120343097.png)
+$$
+y_i = \frac{e^{x_i}}{\Sigma_{j=1}^{K}{e^{x_j}}}
+$$
+
 
 Softmax 与正常的 max 函数不同：max 函数仅输出最大值，但 Softmax 确保较小的值具有较小的概率，并且不会直接丢弃。
 
@@ -126,13 +149,17 @@ Softmax 与正常的 max 函数不同：max 函数仅输出最大值，但 Softm
 
 表达为，其中σ是sigmoid函数，β是可学习或固定参数。
 
+$$
+y = x * \sigma(\beta x)
+$$
 
-
-![image-20240729120348546](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120348546.png)
 
 即
 
-![image-20240729120352895](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120352895.png)
+$$
+y = \frac{x}{1+e^{-\beta x}}
+$$
+
 
 图像为
 
@@ -146,11 +173,17 @@ Softmax 与正常的 max 函数不同：max 函数仅输出最大值，但 Softm
 
 表达式
 
-![image-20240729120359128](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120359128.png)
+$$
+f(x) = ln(1 + e^x)
+$$
+
 
 其导数为sigmoid函数
 
-![image-20240729120405250](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120405250.png)
+$$
+f'(x) = \frac{e^x}{1 + e^x} = \frac{1}{1 + e^{-x}}
+$$
+
 
 因此也被称为logistic/sigmoid函数。
 
