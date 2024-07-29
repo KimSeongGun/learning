@@ -84,7 +84,7 @@ $$
 
 图像为
 
-<img src="D:\AllProjects\learning\Nets\assets\Leaky ReLU.png" alt="Leaky ReLU" style="zoom:80%;" />
+<img src="assets\Leaky ReLU.png" alt="Leaky ReLU" style="zoom:80%;" />
 
 - 优点：Leaky ReLU 通过把x的非常小的线性分量赋给负输出以调整负输入的梯度值。leak 有助于扩大 ReLU 函数的范围，通常 a 的值为 0.01 左右；Leaky ReLU 的函数范围是负无穷到正无穷。
 
@@ -106,13 +106,13 @@ $$
 
 图像为
 
-<img src="D:\AllProjects\learning\Nets\assets\ELU.png" alt="ELU" style="zoom:80%;" />
+<img src="assets\ELU.png" alt="ELU" style="zoom:80%;" />
 
 - 优点：ELU没有Dead ReLU问题，且平均值接近零，以0为中心。ELU减少了偏执偏移的影响，使正常梯度更接近于单位自然梯度。ELU 在较小的输入下会饱和至负值，从而减少前向传播的变异和信息。
 
 目前在实践中没有充分的证据表明 ELU 总是比 ReLU 好。
 
-<img src="D:\AllProjects\learning\Nets\assets\relu compare.png" alt="relu compare" style="zoom:80%;" />
+<img src="assets\relu compare.png" alt="relu compare" style="zoom:80%;" />
 
 ## PReLU
 
@@ -163,11 +163,11 @@ $$
 
 图像为
 
-<img src="D:\AllProjects\learning\Nets\assets\Swish.png" alt="Swish" style="zoom:80%;" />
+<img src="assets\Swish.png" alt="Swish" style="zoom:80%;" />
 
 - 优点：平滑的非线性函数，有利于梯度下降。Swish 函数是**非单调**的，这有助于模型学习更复杂的非线性关系。**自动门控性**，在输入为负时，函数可能会接近于 0，类似于 ReLU，而在输入为正时，函数保持输入的幅度。在某些情况下，Swish 函数可以比 ReLU 和其它激活函数提供更好的性能。
 
-<img src="D:\AllProjects\learning\Nets\assets\Swish compare.png" alt="Swish compare" style="zoom:80%;" />
+<img src="assets\Swish compare.png" alt="Swish compare" style="zoom:80%;" />
 
 ## Softplus
 
@@ -189,5 +189,5 @@ $$
 
 Softplus 函数类似于 ReLU 函数，但是相对较平滑，像 ReLU 一样是单侧抑制。Softplus 函数**通常用作神经网络中隐藏层的激活函数**，有时也用作输出层，特别是在需要预测正数值的回归任务中。
 
-<img src="D:\AllProjects\learning\Nets\assets\Softplus compare.png" alt="Swish compare" style="zoom:80%;" />
+<img src="assets\Softplus compare.png" alt="Swish compare" style="zoom:80%;" />
 
