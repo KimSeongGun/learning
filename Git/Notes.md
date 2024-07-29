@@ -206,7 +206,7 @@ Git的版本回退速度非常快，因为Git在内部有个指向当前版本�
 
 工作区中的隐藏目录`/.git`不算工作区，而是Git的版本库（Repository）。Git的版本库里存了很多东西，其中最重要的就是称为**stage**（或者叫**index**）的暂存区，还有Git为我们自动创建的第一个分支`master`，以及指向`master`的一个指针叫`HEAD`。
 
-![image-20240725104035987](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240725104035987.png)
+![image-20240725104035987](assets\工作区.png)
 
 第一步是用`git add`把文件添加进去，实际上就是把文件修改添加到暂存区；
 
@@ -241,7 +241,7 @@ Changes to be committed:
 
 此时暂存区为
 
-![image-20240725104723776](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240725104723776.png)
+![image-20240725104723776](assets\暂存区.png)
 
 `git add`命令实际上就是把要提交的所有修改放到暂存区（Stage），然后，执行`git commit`就可以一次性把暂存区的所有修改提交到分支。
 
@@ -352,7 +352,7 @@ $ ssh-keygen -t rsa -C "sgkim925@gmail.com"
 
 然后一路回车，使用默认值即可.
 
-![image-20240725110640733](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240725110640733.png)
+![image-20240725110640733](assets\私钥.png)
 
 `id_rsa`是私钥，不能泄露出去，`id_rsa.pub`是公钥，可以放心地告诉任何人。
 
@@ -381,7 +381,7 @@ GitHub需要识别出你推送的提交确实是你推送的，而不是别人�
 
 首先，登陆GitHub，然后，在右上角找到“Create a new repo”按钮，创建一个新的仓库：
 
-![image-20240725111951865](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240725111951865.png)
+![image-20240725111951865](assets\QuickStart.png)
 
 GitHub提示：可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库。
 
@@ -414,7 +414,7 @@ branch 'master' set up to track 'origin/master'.
 
 Git会把本地和远程的master分支**关联起来**，在以后的推送或者拉取时就可以简化命令。
 
-![image-20240725112742945](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240725112742945.png)
+![image-20240725112742945](assets\remote.png)
 
 可以看到，远程和本地已经一模一样了。
 
@@ -457,7 +457,7 @@ $ git remote rm origin
 
 首先，登陆GitHub，创建一个新的仓库，名字叫`gitskills`，勾选`Initialize this repository with a README`，这样GitHub会自动为我们创建一个`README.md`文件。创建完毕后，可以看到`README.md`文件。
 
-![image-20240725113344209](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240725113344209.png)
+![image-20240725113344209](assets\clone.png)
 
 使用`git clone`克隆一个本地库，注意git bash的pwd。
 
@@ -482,19 +482,21 @@ Git支持多种协议，包括`https`，但`ssh`协议速度最快。
 
 每次提交，Git都将他们串成一条时间线，这条时间线就是一个分支。`HEAD`指向`master`，`master`指向当前提交。**`HEAD`指向当前分支。**
 
-![image-20240727135746579](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727135746579.png)
+<img src="assets\head.png" alt="image-20240727135746579" style="zoom:50%;" />
 
 当创建一个新的分支`dev`后，令`HEAD`指向`dev`，即更改当前分支为`dev`分支。从此，每新提交一次，`dev`指针就向前移动一步而`master`指针不变。
 
-![image-20240727140320899](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727140320899.png)假如在`dev`上的工作完成了，则把`dev`的指针合并到`master`上。
+<img src="assets\dev.png" alt="image-20240727140320899" style="zoom:50%;" />
+
+假如在`dev`上的工作完成了，则把`dev`的指针合并到`master`上。
 
 Git通过把`master`指向`dev`的当前提交完成合并。
 
-![image-20240727140414674](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727140414674.png)
+<img src="assets\merge.png" alt="image-20240727140414674" style="zoom:50%;" />
 
 完成合并后可以删除`dev`分支。
 
-![image-20240727140449234](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727140449234.png)
+<img src="assets\rm.png" alt="image-20240727140449234" style="zoom:50%;" />
 
 #### 1.首先创建`dev`分支
 
@@ -565,7 +567,7 @@ $ git swtich dev
 
 创建一个新的分支`test`，修改Notes.md并提交。然后转回到`master`分支，也修改Notes.md并提交，即出现这样的情况。
 
-![image-20240727155448099](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727155448099.png)
+<img src="assets\conflict.png" alt="image-20240727155448099" style="zoom:50%;" />
 
 此时合并会出现冲突，Git无法执行“快速合并”，只能试图把各自的修改合并起来，但这种合并就可能会有冲突
 
@@ -640,11 +642,11 @@ $ git merge --no-ff -m "merge with no-ff" dev
 
 此时合并后的结果为
 
-![image-20240727161910677](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727161910677.png)
+<img src="assets\no-ff.png" alt="image-20240727161910677" style="zoom:50%;" />
 
 `master`分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；干活应该在`dev`分支上，同时不同的人应该有自己的分支，并向`dev`分支上合并。等发布新版本时再从`dev`向`master`合并。
 
-![image-20240727162058676](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240727162058676.png)
+![image-20240727162058676](assets\mode.png)
 
 合并分支时，加上`--no-ff`参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而`fast forward`合并就看不出来曾经做过合并。
 
@@ -874,3 +876,4 @@ https://liaoxuefeng.com/books/git/customize/server/index.html
 
 
 
+在·
