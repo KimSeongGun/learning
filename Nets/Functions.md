@@ -12,9 +12,9 @@
 ## Sigmoid
 
 公式为
-$$
-f(z) = \frac{1}{(1+e^{-z})}
-$$
+
+![image-20240729120301394](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120301394.png)
+
 图像为
 
 <img src="assets\sigmoid.png" alt="sigmoid" style="zoom: 80%;" />
@@ -29,9 +29,9 @@ $$
 ## Tanh / 双曲正切函数
 
 表达式
-$$
-f(x) = tanh(x) = \frac{2}{1+e^{-2x}} - 1
-$$
+
+![image-20240729120316487](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120316487.png)
+
 图像为
 
 <img src="assets\tanh.png" alt="tanh" style="zoom:80%;" />
@@ -46,12 +46,9 @@ $$
 ## ReLU激活函数
 
 表达式为
-$$
-\sigma(x) = \begin{cases}
-    max(0, x) &  x \ge 0 \\
-    0 &  x \lt 0
-\end{cases}
-$$
+
+![image-20240729120323559](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120323559.png)
+
 图像为
 
 <img src="assets\ReLU.png" alt="ReLU" style="zoom:80%;" />
@@ -64,12 +61,9 @@ $$
 ## Leaky ReLU
 
 表达式
-$$
-f(y_i) = \begin{cases} 
-	y_i & y_i \gt 0 \\
-	a_iy_i & y_i \le 0
-\end{cases}
-$$
+
+![image-20240729120328934](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120328934.png)
+
 图像为
 
 <img src="D:\AllProjects\learning\Nets\assets\Leaky ReLU.png" alt="Leaky ReLU" style="zoom:80%;" />
@@ -83,12 +77,9 @@ $$
 ## ELU
 
 表达式为
-$$
-ELU(x) = \begin{cases}
-	x, & x\gt 0 \\
-	\alpha(e^x - 1), & x\le0
-\end{cases}
-$$
+
+![image-20240729120333328](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120333328.png)
+
 图像为
 
 <img src="D:\AllProjects\learning\Nets\assets\ELU.png" alt="ELU" style="zoom:80%;" />
@@ -102,12 +93,9 @@ $$
 ## PReLU
 
 PReLU 也是 ReLU 的改进版本
-$$
-f(y_i) = \begin{cases}
-	y_i, & y_i \gt 0 \\
-	\alpha_i y_i, & y_i \le 0
-\end{cases}
-$$
+
+![image-20240729120338191](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120338191.png)
+
 可学习参数α通常为 0 到 1 之间的数字，并且通常相对较小。
 
 ![image-20240729113036134](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729113036134.png)
@@ -125,9 +113,9 @@ PReLU 的优点：在负值域，PReLU 的斜率较小，这也可以避免 Dead
 Softmax 是用于多类分类问题的激活函数。对于K为向量，Softmax输出K维值在(0, 1)范围内，且向量中元素总和为1的实向量。
 
 公式为
-$$
-y_i = f(x_i) = \frac{e^{x_i}}{\Sigma^{K}_{j=1}e^{x_j}}
-$$
+
+![image-20240729120343097](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120343097.png)
+
 Softmax 与正常的 max 函数不同：max 函数仅输出最大值，但 Softmax 确保较小的值具有较小的概率，并且不会直接丢弃。
 
 - 主要缺点：**零点不可微**；负输入的梯度为零，对于该区域的激活，**权重不会在反向传播期间更新**，因此会产生永不激活的死亡神经元。
@@ -137,14 +125,14 @@ Softmax 与正常的 max 函数不同：max 函数仅输出最大值，但 Softm
 ## Swish
 
 表达为，其中σ是sigmoid函数，β是可学习或固定参数。
-$$
-y = x * \sigma(\beta x)
-$$
-即
-$$
-y = \frac{x}{1+e^{-\beta x}}
-$$
 
+
+
+![image-20240729120348546](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120348546.png)
+
+即
+
+![image-20240729120352895](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120352895.png)
 
 图像为
 
@@ -157,13 +145,13 @@ $$
 ## Softplus
 
 表达式
-$$
-f(x) = ln (1 + e^x)
-$$
+
+![image-20240729120359128](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120359128.png)
+
 其导数为sigmoid函数
-$$
-f'(x) = \frac{e^x}{1 + e^x} = \frac{1}{1+e^{-x}}
-$$
+
+![image-20240729120405250](C:\Users\Kim\AppData\Roaming\Typora\typora-user-images\image-20240729120405250.png)
+
 因此也被称为logistic/sigmoid函数。
 
 Softplus 函数类似于 ReLU 函数，但是相对较平滑，像 ReLU 一样是单侧抑制。Softplus 函数**通常用作神经网络中隐藏层的激活函数**，有时也用作输出层，特别是在需要预测正数值的回归任务中。
